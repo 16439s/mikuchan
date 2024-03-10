@@ -43,7 +43,7 @@ export type Meta = {
 export default class 藍 {
 	public readonly version = pkg._v;
 	public account: User;
-	public connection: Stream = new Stream();
+	public connection: Stream;
 	public modules: Module[] = [];
 	private mentionHooks: MentionHook[] = [];
 	private contextHooks: { [moduleName: string]: ContextHook } = {};
