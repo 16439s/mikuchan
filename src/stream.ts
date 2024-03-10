@@ -187,6 +187,20 @@ class Pool {
 	}
 
 	@bindThis
+	public dec() {
+		this.users--;
+
+		// そのコネクションの利用者が誰もいなくなったら
+		if (this.users === 0) {
+			// また直ぐに再利用される可能性があるので、一定時間待ち、
+			// 新たな利用者が現れなければコネクションを切断する
+			this.disposeTimerId = setTimeout(() => {
+				this.disconnect();
+			}, 3000);
+		}
+	}
+
+	@bindThis
 	public connect() {
 		this.isConnected = true;
 		this.stream.send('connect', {
